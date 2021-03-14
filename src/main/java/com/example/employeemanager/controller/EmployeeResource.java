@@ -1,5 +1,4 @@
 package com.example.employeemanager.controller;
-
 import com.example.employeemanager.dto.EmployeeCreateRequest;
 import com.example.employeemanager.model.Employee;
 import com.example.employeemanager.service.EmployeeService;
@@ -7,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/employee")
 public class EmployeeResource {
@@ -32,8 +30,6 @@ public class EmployeeResource {
     public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeCreateRequest employeeCreateRequest) {
         return new ResponseEntity<>(employeeService.addEmployee(employeeCreateRequest), HttpStatus.CREATED);
     }
-
-
 
     @PutMapping("/update")
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
