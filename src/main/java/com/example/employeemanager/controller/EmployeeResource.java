@@ -1,5 +1,6 @@
 package com.example.employeemanager.controller;
 import com.example.employeemanager.dto.EmployeeCreateRequest;
+import com.example.employeemanager.dto.EmployeeUpdateRequest;
 import com.example.employeemanager.model.Employee;
 import com.example.employeemanager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,13 @@ public class EmployeeResource {
         return new ResponseEntity<>(employeeService.addEmployee(employeeCreateRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
-        Employee updateEmployee = employeeService.updateEmployee(employee);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeUpdateRequest employeeUpdateRequest) {
+        Employee updateEmployee = employeeService.updateEmployee(id,employeeUpdateRequest);
         return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
