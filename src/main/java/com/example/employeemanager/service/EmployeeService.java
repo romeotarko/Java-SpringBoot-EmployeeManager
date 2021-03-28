@@ -1,9 +1,12 @@
 package com.example.employeemanager.service;
+import ch.qos.logback.classic.Logger;
 import com.example.employeemanager.dto.EmployeeCreateRequest;
 import com.example.employeemanager.dto.EmployeeUpdateRequest;
+import com.example.employeemanager.exception.EmployeeApplicationException;
 import com.example.employeemanager.exception.UseNotFoundException;
 import com.example.employeemanager.model.Employee;
 import com.example.employeemanager.repository.EmployeeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
-
+@Slf4j
 @Service
 public class EmployeeService {
 
@@ -54,6 +57,15 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
+        checkIfEmployeeExists(id);
         employeeRepository.deleteById(id);
+    }
+
+    private void checkIfEmployeeExists(Long id) {
+        if (!employeeRepository.existsById(id)) {
+            log.debug("Employee with id {} does not exist!, id");
+            throw new EmployeeApplicationException("Employee with id: " + id + " does not exist!"
+                    , HttpStatus.NOT_FOUND);
+        }
     }
 }
