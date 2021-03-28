@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -28,7 +30,7 @@ public class EmployeeResource {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeCreateRequest employeeCreateRequest) {
+    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody  EmployeeCreateRequest employeeCreateRequest) {
         return new ResponseEntity<>(employeeService.addEmployee(employeeCreateRequest), HttpStatus.CREATED);
     }
 
