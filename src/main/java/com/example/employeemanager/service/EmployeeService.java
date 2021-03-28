@@ -1,5 +1,4 @@
 package com.example.employeemanager.service;
-
 import com.example.employeemanager.dto.EmployeeCreateRequest;
 import com.example.employeemanager.dto.EmployeeUpdateRequest;
 import com.example.employeemanager.exception.UseNotFoundException;
@@ -56,6 +55,5 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
-
     }
 }
