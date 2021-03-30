@@ -13,11 +13,19 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeCreateRequest {
+
+    @NotBlank(message = "First Name must not be empty")
     private String name;
+
     @NotBlank(message = "Email must not be empty")
     @Email(message = "Please provide a valid email address")
     private String email;
+
+    @NotBlank(message = "Job title must not be empty")
     private String jobTitle;
+
+    @NotBlank(message = "Phone number must not be empty")
     private String phone;
+
     private String imageUrl;
 }
